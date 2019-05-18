@@ -1,7 +1,4 @@
-﻿public class ZEventBase<T> where T : new(){
+﻿public abstract class ZEventBase{
 
-    public static T Create() {
-        return new T();
-    }
 
 }

@@ -6,15 +6,26 @@ public class ZEventManager : ZSingleton<ZEventManager> {
 
     private ZEventDispatcher dispatcher = new ZEventDispatcher();
 
-    public void SendEvent<T>(T evt) {
+    public void SendEvent(ZEventBase evt){
         dispatcher.Dispatch(evt);
     }
 
-    public void Listen<T>(ZEventListener<T> listener) {
-        dispatcher.AddListener(listener);
+    public void Listen<T>(ZEventListener<T> listener, System.Func<T> propertyGetter = null) {
+        if (listener != null) {
+            if (propertyGetter != null) {
+                listener(propertyGetter());
+            }
+            dispatcher.AddListener(listener);
+        }        
     }
 
     public void UnListen<T>(ZEventListener<T> listener) {
-        dispatcher.RemoveListener(listener);
+        if (listener != null) {
+            dispatcher.RemoveListener(listener);
+        }        
+    }
+
+    public static void ObserveProperty<T>(ZEventListener<T> listener, System.Func<T> propertyGetter) {
+        Instance.Listen<T>(listener, propertyGetter);
     }
 }

@@ -11,6 +11,9 @@ public class ZGameRuntime : ZSingletonComp<ZGameRuntime> {
     private List<ZLogicBase> allLogic = new List<ZLogicBase>();
 
     void Awake() {
+        // 读取游戏设置
+        ZGameSetting.Instance.Load();
+
         // 初始所有Logic
         InitAllLogic();
 
@@ -57,22 +60,22 @@ public class ZGameRuntime : ZSingletonComp<ZGameRuntime> {
 
     public void LaunchApp() {
         // 发送游戏启动消息
-        SendEvent<ZAppLaunchEvent>(ZAppLaunchEvent.Create());
+        SendEvent(ZAppLaunchEvent.Create());
     }
 
     public void PauseApp() {
         // 发送游戏暂停消息
-        SendEvent<ZAppPauseEvent>(ZAppPauseEvent.Create());
+        SendEvent(ZAppPauseEvent.Create());
     }
 
     public void ResumeApp() {
         // 发送游戏恢复消息
-        SendEvent<ZAppResumeEvent>(ZAppResumeEvent.Create());
+        SendEvent(ZAppResumeEvent.Create());
     }
 
     public void ExitApp() {
         // 发送游戏退出消息
-        SendEvent<ZAppExitEvent>(ZAppExitEvent.Create());
+        SendEvent(ZAppExitEvent.Create());
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
