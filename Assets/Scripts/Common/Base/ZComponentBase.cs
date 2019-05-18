@@ -112,4 +112,8 @@ public class ZComponentBase : MonoBehaviour {
     public void StopAnimation() {
         StopAnimationOnTarget(gameObject);
     }
+
+    public void SendEvent<T>(T evt) {
+        ZEventManager.Instance.SendEvent(evt);
+    }
 }

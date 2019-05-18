@@ -2,34 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void ZEventListener(ZEventBase evt);
+public delegate void ZEventListener<T>(T evt);
 
 public class ZEventDispatcher {
 
-    private Dictionary<System.Type, ZEventListener> eventHandlers = new Dictionary<System.Type, ZEventListener>();
+    private Dictionary<System.Type, object> eventHandlers = new Dictionary<System.Type, object>();
 
-    public void AddListener(System.Type type, ZEventListener listener) {
-        ZEventListener listeners;
-        if (eventHandlers.TryGetValue(type, out listeners)) {
+    public void AddListener<T>(ZEventListener<T> listener) {
+        System.Type type = typeof(T);
+        object obj;
+        ZEventListener<T> listeners;
+        if (eventHandlers.TryGetValue(type, out obj)) {
+            listeners = (ZEventListener<T>)obj;
             listeners += listener;
         } else {
             eventHandlers[type] = listener;
         }
     }
 
-    public void RemoveListener(System.Type type, ZEventListener listener) {
-        ZEventListener listeners;
-        if (eventHandlers.TryGetValue(type, out listeners)) {
+    public void RemoveListener<T>(ZEventListener<T> listener) {
+        System.Type type = typeof(T);
+        object obj;
+        ZEventListener<T> listeners;
+        if (eventHandlers.TryGetValue(type, out obj)) {
+            listeners = (ZEventListener<T>)obj;
             listeners -= listener;
         } else {
             eventHandlers.Remove(type);
         }
     }
 
-    public void Dispatch(ZEventBase evt) {
-        System.Type type = evt.GetType();
-        ZEventListener listeners;
-        if (eventHandlers.TryGetValue(type, out listeners)) {
+    public void Dispatch<T>(T evt) {
+        System.Type type = typeof(T);
+        object obj;
+        ZEventListener<T> listeners;
+        if (eventHandlers.TryGetValue(type, out obj)) {
+            listeners = (ZEventListener<T>)obj;
             listeners(evt);
         }
     }
