@@ -8,10 +8,6 @@ public class ZLogicBase : ZComponentBase {
 
     }
 
-    public virtual void UnRegisterEvents() {
-
-    }
-
     public virtual void StartLogic() {
 
     }

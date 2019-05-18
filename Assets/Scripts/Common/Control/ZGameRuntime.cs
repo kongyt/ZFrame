@@ -16,6 +16,7 @@ public class ZGameRuntime : ZSingletonComp<ZGameRuntime> {
 
         // 初始所有Logic
         InitAllLogic();
+        RegisterAllEvents();
 
         LaunchApp();
     }
@@ -44,6 +45,12 @@ public class ZGameRuntime : ZSingletonComp<ZGameRuntime> {
         T logic = gameObject.AddComponent<T>();
         allLogic.Add(logic);
         return logic;
+    }
+
+    protected void RegisterAllEvents() {
+        for (int i = 0; i < allLogic.Count; i++) {
+            allLogic[i].RegisterEvents();
+        }
     }
 
     protected void StartAllLogic() {
