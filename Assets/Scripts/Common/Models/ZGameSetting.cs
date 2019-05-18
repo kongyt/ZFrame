@@ -20,9 +20,11 @@ public class ZGameSetting : ZSingleton<ZGameSetting> {
         }
 
         set {
-            musicEnabled = value;
-            ZPlayerPrefs.SetBool("ZMusicEnabled", musicEnabled);
-            ZEventManager.Instance.SendEvent(ZSettingMusicEvent.Create(musicEnabled));
+            if (musicEnabled != value) {
+                musicEnabled = value;
+                ZPlayerPrefs.SetBool("ZMusicEnabled", musicEnabled);
+                ZEventManager.Instance.SendEvent(ZSettingMusicEvent.Create(musicEnabled));
+            }
         }
     }
 
@@ -32,9 +34,11 @@ public class ZGameSetting : ZSingleton<ZGameSetting> {
         }
 
         set {
-            soundEnabled = value;
-            ZPlayerPrefs.SetBool("ZSoundEnabled", soundEnabled);
-            ZEventManager.Instance.SendEvent(ZSettingSoundEvent.Create(soundEnabled));
+            if (soundEnabled != value) {
+                soundEnabled = value;
+                ZPlayerPrefs.SetBool("ZSoundEnabled", soundEnabled);
+                ZEventManager.Instance.SendEvent(ZSettingSoundEvent.Create(soundEnabled));
+            }
         }
     }
 
@@ -44,9 +48,11 @@ public class ZGameSetting : ZSingleton<ZGameSetting> {
         }
 
         set {
-            notificationEnabled = value;
-            ZPlayerPrefs.SetBool("ZNotificationEnabled", notificationEnabled);
-            ZEventManager.Instance.SendEvent(ZSettingNotificationEvent.Create(notificationEnabled));
+            if (notificationEnabled != value) {
+                notificationEnabled = value;
+                ZPlayerPrefs.SetBool("ZNotificationEnabled", notificationEnabled);
+                ZEventManager.Instance.SendEvent(ZSettingNotificationEvent.Create(notificationEnabled));
+            }            
         }
     }
 }
