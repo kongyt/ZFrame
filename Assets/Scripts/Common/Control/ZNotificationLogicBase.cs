@@ -25,9 +25,7 @@ public class ZNotificationLogicBase : ZLogicBase {
     public override void RegisterEvents() {
         base.RegisterEvents();
 
-        ZEventManager.ObserveProperty(OnNotification, () => {
-            return ZSettingNotificationEvent.Create(ZGameSetting.Instance.NotificationEnabled);
-        });
+        ZEventManager.Instance.ObserveProperty<ZSettingNotificationEvent>(OnNotification);
 
         ZEventManager.Instance.Listen<ZAppLaunchEvent>(OnAppLaunch);
         ZEventManager.Instance.Listen<ZAppPauseEvent>(OnAppPause);

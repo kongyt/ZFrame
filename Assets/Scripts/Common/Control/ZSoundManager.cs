@@ -18,13 +18,9 @@ public class ZSoundManager : ZSingletonComp<ZSoundManager> {
         bgmSource = gameObject.AddComponent<AudioSource>();
         effectSource = gameObject.AddComponent<AudioSource>();
 
-        ZEventManager.ObserveProperty<ZSettingMusicEvent>(OnMusic, () => {
-            return ZSettingMusicEvent.Create(ZGameSetting.Instance.MusicEnabled);
-        });
+        ZEventManager.Instance.ObserveProperty<ZSettingMusicEvent>(OnMusic);
 
-        ZEventManager.ObserveProperty<ZSettingSoundEvent>(OnSound, () => {
-            return ZSettingSoundEvent.Create(ZGameSetting.Instance.SoundEnabled);
-        });
+        ZEventManager.Instance.ObserveProperty<ZSettingSoundEvent>(OnSound);
     }
 
     private void OnMusic(ZSettingMusicEvent evt) {
